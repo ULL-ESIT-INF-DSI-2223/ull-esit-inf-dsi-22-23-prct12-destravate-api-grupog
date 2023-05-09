@@ -21,4 +21,4 @@ export const TrackHistoryEntrySchema = new Schema<TrackHistoryEntryInterface>({
     type: Number,
     required: true
   },
-})
+}, {_id: false})

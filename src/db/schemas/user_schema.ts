@@ -1,5 +1,6 @@
 import { UserInterface } from "../interfaces/user_interface.js";
 import { Schema } from 'mongoose';
+import { TrackHistoryEntrySchema } from "./track_history_entry_schema.js";
 
 /**
  * 
@@ -37,7 +38,7 @@ export const UserSchema = new Schema<UserInterface>({
     required: false
   },
   routeHistory: {
-    type: [String],
+    type: [TrackHistoryEntrySchema],
     required: false
   },
   activity: {

@@ -1,5 +1,6 @@
 import { ActivityType } from "../activity_type.js";
 import { Document } from 'mongoose';
+import { TrackHistoryEntryInterface } from "./track_history_interface.js";
 
 /**
  * 
@@ -11,6 +12,6 @@ export interface UserInterface extends Document {
   groupFriends: string[]
   favoriteRoutes: string[];
   activeChallenges: string[];
-  routeHistory: string[];
+  routeHistory: TrackHistoryEntryInterface[];
   activity: ActivityType;
 }

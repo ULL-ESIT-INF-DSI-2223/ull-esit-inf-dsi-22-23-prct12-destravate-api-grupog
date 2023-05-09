@@ -32,4 +32,4 @@ export const CoordinatesSchema = new Schema<CoordinatesInterface>({
       }
     }
   }
-})
+}, {_id: false})

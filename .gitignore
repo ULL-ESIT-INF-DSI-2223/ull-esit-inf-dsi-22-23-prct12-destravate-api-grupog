@@ -1,6 +1,7 @@
 coverage/
 dist/
 node_modules
+.DS_Store
 .coveralls.yml
 .vscode
 db_testing*
