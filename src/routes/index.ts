@@ -1,18 +1,20 @@
+import * as http from "node:http";
 import express from "express";
 import challenges from "./challenges.js";
 import groups from "./groups.js";
 import tracks from "./tracks.js";
 import users from "./users.js";
-import "../db/connections.js"
 import { sendError } from "./_common.js";
 
-const app = express();
-app.use(express.json());
+export function start(port: number): http.Server {
+  const app = express();
+  app.use(express.json());
 
-challenges(app)
-groups(app)
-tracks(app)
-users(app)
+  challenges(app)
+  groups(app)
+  tracks(app)
+  users(app)
 
-app.all("*", (_, resp) => sendError(resp, "Not found: Endpoint or Method", 404))
-app.listen(12345)
+  app.all("*", (_, resp) => sendError(resp, "Not found: Endpoint or Method", 404))
+  return app.listen(port)
+}
