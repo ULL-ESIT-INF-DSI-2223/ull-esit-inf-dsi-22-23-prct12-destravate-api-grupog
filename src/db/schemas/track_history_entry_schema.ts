@@ -1,14 +1,14 @@
 import { TrackHistoryEntryInterface } from "../interfaces/track_history_interface.js"
-import { Schema, Types } from 'mongoose';
+import { Schema } from 'mongoose';
 
 /**
- * 
+ * Schema to represent a trackhistoryentry following TrackHistoryEntryInterface
  */
 export const TrackHistoryEntrySchema = new Schema<TrackHistoryEntryInterface>({
-  routeId: {
-    type: Types.ObjectId,
-    required: true
-  },
+  routeId: [{
+    type: Schema.Types.ObjectId,
+    ref: "Track"
+  }],
   date: {
     type: String,
     required: true

@@ -3,10 +3,10 @@ import { Schema } from 'mongoose';
 import { TrackHistoryEntrySchema } from "./track_history_entry_schema.js";
 
 /**
- * 
+ * Schema to represent a user following UserInterface
  */
 export const UserSchema = new Schema<UserInterface>({
-  uid: {
+  _id: {
     type: String,
     required: true,
     unique: true
@@ -19,27 +19,26 @@ export const UserSchema = new Schema<UserInterface>({
         throw new Error("invalid name");
       }
     },
-    unique: true
   },
-  friends: {
-    type: [String],
-    required: false
-  },
-  groupFriends: {
-    type: [String],
-    required: false
-  },
-  favoriteRoutes: {
-    type: [String],
-    required: false
-  },
-  activeChallenges: {
-    type: [String],
-    required: false
-  },
+  friends: [{
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  }],
+  groupFriends: [{
+    type: Schema.Types.ObjectId,
+    ref: "Group"
+  }],
+  favoriteRoutes: [{
+    type: Schema.Types.ObjectId,
+    ref: "Track"
+  }],
+  activeChallenges: [{
+    type: Schema.Types.ObjectId,
+    ref: "Challenge"
+  }],
   routeHistory: {
     type: [TrackHistoryEntrySchema],
-    required: false
+    required: true
   },
   activity: {
     type: String,

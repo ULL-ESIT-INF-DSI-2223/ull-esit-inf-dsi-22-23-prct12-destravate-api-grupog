@@ -1,5 +1,5 @@
 /**
- * 
+ * Enum containing the name of the collection
  */
 export enum Collection {
   USERS = "users",

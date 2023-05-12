@@ -4,17 +4,20 @@ import { UserInterface } from '../interfaces/user_interface.js';
 import { UserSchema } from '../schemas/user_schema.js';
 
 /**
- * 
+ * Model of a User, using the Schema of User
  */
 export const User = model<UserInterface>(Collection.USERS, UserSchema)
 
+/**
+ * Function made to return to the client a JSON with the data we want
+ * @param ui. interface of the user
+ */
 export function userDocToUser(ui: UserInterface): unknown {
   return {
-    id: ui._id,
-    uid: ui.uid,
+    _id: ui._id,
     name: ui.name,
     friends: ui.friends,
-    gruoupFriends: ui.groupFriends,
+    groupFriends: ui.groupFriends,
     favoriteRoutes: ui.favoriteRoutes,
     activeChallenges: ui.activeChallenges,
     routeHistory: ui.routeHistory,

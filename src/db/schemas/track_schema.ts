@@ -3,7 +3,7 @@ import { Schema } from 'mongoose';
 import { CoordinatesSchema } from "./coordinates_schema.js";
 
 /**
- * 
+ * Schema to represent a track following TrackInterface
  */
 export const TrackSchema = new Schema<TrackInterface> ({
   name: {
@@ -36,10 +36,10 @@ export const TrackSchema = new Schema<TrackInterface> ({
     type: Number,
     required: true,
   },
-  userIds: {
-    type: [String],
-    required: true,
-  },
+  userIds: [{
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  }],
   activity: {
     type: String,
     required: true,

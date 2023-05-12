@@ -1,7 +1,7 @@
 import { Document } from 'mongoose';
 
 /**
- * 
+ * Interface to represent a Coordinate
  */
 export interface CoordinatesInterface extends Document {
   latitude: number,

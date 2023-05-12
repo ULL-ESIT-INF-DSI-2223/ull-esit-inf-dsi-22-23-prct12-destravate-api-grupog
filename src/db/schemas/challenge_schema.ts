@@ -2,7 +2,7 @@ import { ChallengeInterface } from "../interfaces/challenge_interface.js"
 import { Schema } from 'mongoose';
 
 /**
- * 
+ * Schema to represent a challenge following ChallengeInterface
  */
 export const ChallengeSchema = new Schema<ChallengeInterface> ({
   name: {
@@ -10,14 +10,14 @@ export const ChallengeSchema = new Schema<ChallengeInterface> ({
     required: true,
     unique: true
   },
-  routes: {
-    type: [String],
-    required: true
-  },
-  userIds: {
-    type: [String],
-    required: true,
-  },
+  routes: [{
+    type: Schema.Types.ObjectId,
+    ref: "Track"
+  }],
+  userIds: [{
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  }],
   activity: {
     type: String,
     required: true,

@@ -3,10 +3,10 @@ import { Document } from 'mongoose';
 import { TrackHistoryEntryInterface } from "./track_history_interface.js";
 
 /**
- * 
+ * Interface to represent a User
  */
 export interface UserInterface extends Document {
-  uid: string; 
+  _id: string; 
   name: string;
   friends: string[];
   groupFriends: string[]

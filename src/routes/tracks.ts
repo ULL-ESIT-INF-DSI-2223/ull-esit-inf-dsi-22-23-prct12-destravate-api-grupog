@@ -1,133 +1,151 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Express } from "express";
+import express from "express";
 import { Track } from "../db/models/track.js";
 import { trackDocToTrack } from "../db/models/track.js";
 import { getQueryParamName, sendError } from "./_common.js";
 import { Document, Types } from "mongoose";
 import { TrackInterface } from "../db/interfaces/track_interface.js";
 
+export const trackRouter = express.Router();
+
 /**
- * Different operations on the Track Route:
- *  - Delete: remove a track from database
- *  - Post: create a track on the database
- *  - Get: sends to the client the information saved on the database
- *  - Put: modify a track on the database
- * @param app Expess default server
+ * Method to delete a track from the database by ID
  */
-export default function tracks(app: Express) {
-  app.delete("/tracks/:id", async (req, resp) => {
-    try {
-      await Track.findByIdAndDelete(req.params.id)
-    } catch (e) {
-      sendError(resp, e)
-      return
-    }
-    resp.sendStatus(204)
-  })
+trackRouter.delete("/tracks/:id", async (req, resp) => {
+  try {
+    await Track.findByIdAndDelete(req.params.id)
+  } catch (e) {
+    sendError(resp, e)
+    return
+  }
+  resp.sendStatus(204)
+})
 
-  app.get("/tracks/:id", async (req, resp) => {
-    let track
-    try {
-      track = await Track.findById(req.params.id)
-    } catch (e) {
-      sendError(resp, e)
-      return
-    }
-    if (!track) {
-      sendError(resp, `Not Found: Track with ID '${req.params.id}'`, 404)
-      return
-    }
-    resp.send(trackDocToTrack(track))
-  })
-  
-  app.put("/tracks/:id", async (req, resp) => {
-    let track: (Document<unknown, TrackInterface> & Omit<TrackInterface & { _id: Types.ObjectId; }, never>) | null
-    try {
-      track = await Track.findById(req.params.id)
-    } catch (e) {
-      sendError(resp, e)
-      return
-    }
-    if (!track) {
-      sendError(resp, `Not Found: Track with ID '${req.params.id}'`, 404)
-      return
-    }
+/**
+ * Method to get a track from the database by ID
+ */
+trackRouter.get("/tracks/:id", async (req, resp) => {
+  let track
+  try {
+    track = await Track.findById(req.params.id)
+  } catch (e) {
+    sendError(resp, e)
+    return
+  }
+  if (!track) {
+    sendError(resp, `Not Found: Track with ID '${req.params.id}'`, 404)
+    return
+  }
+  resp.send(trackDocToTrack(track))
+})
 
-    Object.keys(req.body).forEach(key => (track as any)[key] = req.body[key])
-    
-    try {
-      await track.save()
-    } catch (e) {
-      sendError(resp, e)
-      return
-    }
-    resp.sendStatus(204)
-  })
-  
-  app.delete("/tracks", async (req, resp) => {
-    const name = getQueryParamName(req, resp)
-    if (!name) return
-    
-    try {
-      await Track.findOneAndDelete({name})
-    } catch (e) {
-      sendError(resp, e)
-      return
-    }
-    resp.sendStatus(204)
-  })
-  
-  app.get("/tracks", async (req, resp) => {
-    const name = getQueryParamName(req, resp)
-    if (!name) return;
 
-    let track
-    try {
-      track = await Track.findOne({name})
-    } catch (e) {
-      sendError(resp, e)
-      return
-    }
-    if (!track) {
-      sendError(resp, `Not Found: Track with name '${name}'`, 404)
-      return
-    }
-    resp.send(trackDocToTrack(track))
-  })
-  
-  app.post("/tracks", async (req, resp) => {
-    try {
-      await new Track(req.body).save()
-    } catch (e) {
-      sendError(resp, e)
-      return
-    }
-    resp.status(201).send(req.body)
-  })
-  
-  app.put("/tracks", async (req, resp) => {
-    const name = getQueryParamName(req, resp)
+/**
+ * Method to update a track from the database by ID
+ */
+trackRouter.put("/tracks/:id", async (req, resp) => {
+  let track: (Document<unknown, TrackInterface> & Omit<TrackInterface & { _id: Types.ObjectId; }, never>) | null
+  try {
+    track = await Track.findById(req.params.id)
+  } catch (e) {
+    sendError(resp, e)
+    return
+  }
+  if (!track) {
+    sendError(resp, `Not Found: Track with ID '${req.params.id}'`, 404)
+    return
+  }
 
-    let track: (Document<unknown, TrackInterface> & Omit<TrackInterface & { _id: Types.ObjectId; }, never>) | null
-    try {
-      track = await Track.findOneAndUpdate({name})
-    } catch (e) {
-      sendError(resp, e)
-      return
-    }
-    if (!track) {
-      sendError(resp, `Not Found: Track with name '${name}'`, 404)
-      return
-    }
+  Object.keys(req.body).forEach(key => (track as any)[key] = req.body[key])
+  
+  try {
+    await track.save()
+  } catch (e) {
+    sendError(resp, e)
+    return
+  }
+  resp.sendStatus(204)
+})
 
-    Object.keys(req.body).forEach(key => (track as any)[key] = req.body[key])
-    
-    try {
-      await track.save()
-    } catch (e) {
-      sendError(resp, e)
-      return
-    }
-    resp.sendStatus(204)
-	})
-}
+
+/**
+ * Method to delete a track from the database by name
+ */
+trackRouter.delete("/tracks", async (req, resp) => {
+  const name = getQueryParamName(req, resp)
+  if (!name) return
+  
+  try {
+    await Track.findOneAndDelete({name})
+  } catch (e) {
+    sendError(resp, e)
+    return
+  }
+  resp.sendStatus(204)
+})
+
+
+/**
+ * Method to get a track from the database by name
+ */
+trackRouter.get("/tracks", async (req, resp) => {
+  const name = getQueryParamName(req, resp)
+  if (!name) return;
+
+  let track
+  try {
+    track = await Track.findOne({name})
+  } catch (e) {
+    sendError(resp, e)
+    return
+  }
+  if (!track) {
+    sendError(resp, `Not Found: Track with name '${name}'`, 404)
+    return
+  }
+  resp.send(trackDocToTrack(track))
+})
+
+
+/**
+ * Method to insert a track to the database
+ */
+trackRouter.post("/tracks", async (req, resp) => {
+  try {
+    await new Track(req.body).save()
+  } catch (e) {
+    sendError(resp, e)
+    return
+  }
+  resp.status(201).send(req.body)
+})
+
+
+/**
+ * Method to update a track from the database by name
+ */
+trackRouter.put("/tracks", async (req, resp) => {
+  const name = getQueryParamName(req, resp)
+
+  let track: (Document<unknown, TrackInterface> & Omit<TrackInterface & { _id: Types.ObjectId; }, never>) | null
+  try {
+    track = await Track.findOneAndUpdate({name})
+  } catch (e) {
+    sendError(resp, e)
+    return
+  }
+  if (!track) {
+    sendError(resp, `Not Found: Track with name '${name}'`, 404)
+    return
+  }
+
+  Object.keys(req.body).forEach(key => (track as any)[key] = req.body[key])
+  
+  try {
+    await track.save()
+  } catch (e) {
+    sendError(resp, e)
+    return
+  }
+  resp.sendStatus(204)
+})

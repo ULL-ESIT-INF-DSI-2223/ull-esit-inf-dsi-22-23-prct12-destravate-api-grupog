@@ -2,7 +2,7 @@ import { Schema } from 'mongoose';
 import { CoordinatesInterface } from "../interfaces/coordinate_interface.js";
 
 /**
- * 
+ * Schema to represent a coordinate following CoordinatesInterface
  */
 export const CoordinatesSchema = new Schema<CoordinatesInterface>({
   latitude: {
