@@ -34,7 +34,8 @@ const testUser2 = new User({
 describe("API Groups Endpoint", () => {
   let srv: http.Server
 
-  before(async () => {
+  before(async function() {
+    this.timeout(5000)
     db.connect("test")
     srv = api.start(0)
     await Promise.all([Group.deleteMany({}), testUser.save(), testUser2.save()])
