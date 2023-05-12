@@ -37,9 +37,7 @@ describe("API Groups Endpoint", () => {
   before(async () => {
     db.connect("test")
     srv = api.start(0)
-    await Group.deleteMany({})
-    await testUser.save()
-    await testUser2.save()
+    await Promise.all([Group.deleteMany({}), testUser.save(), testUser2.save()])
   })
   
   it("Create group", async () => {
