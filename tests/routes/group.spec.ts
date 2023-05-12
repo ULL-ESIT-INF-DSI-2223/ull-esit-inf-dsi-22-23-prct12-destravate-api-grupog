@@ -50,7 +50,7 @@ describe("API Groups Endpoint", () => {
         favouriteRoutes: [],
         routeHistory: [],
         createdBy: "testUser2",
-        ActivityType: ActivityType.RUNNING
+        activity: ActivityType.RUNNING
       })
       .expect(201);
     
