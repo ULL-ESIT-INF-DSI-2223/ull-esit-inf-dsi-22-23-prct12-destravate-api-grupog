@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import express from "express";
-import { Challenge } from "../db/models/challenge.js";
+import { Challenge, middlewareChallengeRemoveRelated } from "../db/models/challenge.js";
 import { challengeDocToChallenge } from "../db/models/challenge.js";
 import { getQueryParamName, sendError } from "./_common.js";
 import { Document, Types } from "mongoose";
@@ -12,9 +12,8 @@ export const challengeRouter = express.Router();
  * Method to delete a cahllenge from the database by ID
  */
 challengeRouter.delete("/challenges/:id", async (req, resp) => {
-  
-  resp.sendStatus(204)
   try {
+    await middlewareChallengeRemoveRelated(req.params.id)
     await Challenge.findByIdAndDelete(req.params.id)
   } catch (e) {
     sendError(resp, e)
@@ -74,11 +73,16 @@ challengeRouter.put("/challenges/:id", async (req, resp) => {
 challengeRouter.delete("/challenges", async (req, resp) => {
   const name = getQueryParamName(req, resp)
   if (!name) return
+  let challenge
   try {
-    await Challenge.findOneAndDelete({name})
+    challenge = await Challenge.findOne({name})
   } catch (e) {
     sendError(resp, e)
     return
+  }
+  if (challenge) {
+    await middlewareChallengeRemoveRelated(challenge._id)
+    await challenge.deleteOne()
   }
   resp.sendStatus(204)
 })

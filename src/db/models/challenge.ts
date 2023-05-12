@@ -2,6 +2,7 @@ import { model } from 'mongoose';
 import { Collection } from '../collection.js';
 import { ChallengeSchema } from '../schemas/challenge_schema.js';
 import { ChallengeInterface } from '../interfaces/challenge_interface.js';
+import { User } from './user.js';
 
 /**
   * Model of a Challenge, using the Schema of the Challenge
@@ -20,4 +21,13 @@ export function challengeDocToChallenge(ci: ChallengeInterface): unknown {
     userIds: ci.userIds,
     activity: ci.activity,
   }
+}
+
+export async function middlewareChallengeRemoveRelated(id: string): Promise<unknown> {
+  const promiseList: Promise<unknown>[] = []
+  for (const user of await User.find({ activeChallenges: id })) {
+    user.activeChallenges = user.activeChallenges.filter(challengeID => challengeID !== id)
+    promiseList.push(user.save())
+  }
+  return Promise.all(promiseList)
 }

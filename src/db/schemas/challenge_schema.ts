@@ -4,7 +4,7 @@ import { Schema } from 'mongoose';
 /**
  * Schema to represent a challenge following ChallengeInterface
  */
-export const ChallengeSchema = new Schema<ChallengeInterface> ({
+export const ChallengeSchema = new Schema<ChallengeInterface>({
   name: {
     type: String,
     required: true,
@@ -15,7 +15,7 @@ export const ChallengeSchema = new Schema<ChallengeInterface> ({
     ref: "Track"
   }],
   userIds: [{
-    type: Schema.Types.ObjectId,
+    type: String,
     ref: "User"
   }],
   activity: {

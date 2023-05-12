@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import express from "express";
-import { Track } from "../db/models/track.js";
+import { Track, middlewareTrackRemoveRelated } from "../db/models/track.js";
 import { trackDocToTrack } from "../db/models/track.js";
 import { getQueryParamName, sendError } from "./_common.js";
 import { Document, Types } from "mongoose";
@@ -13,6 +13,7 @@ export const trackRouter = express.Router();
  */
 trackRouter.delete("/tracks/:id", async (req, resp) => {
   try {
+    await middlewareTrackRemoveRelated(req.params.id)
     await Track.findByIdAndDelete(req.params.id)
   } catch (e) {
     sendError(resp, e)
@@ -75,11 +76,16 @@ trackRouter.delete("/tracks", async (req, resp) => {
   const name = getQueryParamName(req, resp)
   if (!name) return
   
+  let track
   try {
-    await Track.findOneAndDelete({name})
+    track = await Track.findOne({name})
   } catch (e) {
     sendError(resp, e)
     return
+  }
+  if (track) {
+    await middlewareTrackRemoveRelated(track._id)
+    await track.deleteOne()
   }
   resp.sendStatus(204)
 })

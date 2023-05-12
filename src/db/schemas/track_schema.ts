@@ -13,7 +13,8 @@ export const TrackSchema = new Schema<TrackInterface> ({
       if (value === "") {
         throw new Error("invalid name");
       }
-    }
+    },
+    unique: true
   },
   start: {
     type: CoordinatesSchema,
@@ -37,7 +38,7 @@ export const TrackSchema = new Schema<TrackInterface> ({
     required: true,
   },
   userIds: [{
-    type: Schema.Types.ObjectId,
+    type: String,
     ref: "User"
   }],
   activity: {

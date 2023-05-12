@@ -17,7 +17,7 @@ export const GroupSchema = new Schema<GroupInterface>({
     unique: true
   },
   participants: [{
-    type: Schema.Types.ObjectId,
+    type: String,
     ref: "User"
   }],
   favoriteRoutes: [{
@@ -25,7 +25,7 @@ export const GroupSchema = new Schema<GroupInterface>({
     ref: "Track"
   }],
   createdBy: [{
-    type: Schema.Types.ObjectId,
+    type: String,
     ref: "User"
   }],
   routeHistory: {

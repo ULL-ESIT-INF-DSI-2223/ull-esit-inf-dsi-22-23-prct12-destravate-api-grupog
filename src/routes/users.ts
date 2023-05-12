@@ -2,7 +2,7 @@
 import express, { Response } from "express";
 import { Document, Types } from "mongoose";
 import { UserInterface } from "../db/interfaces/user_interface.js";
-import { User } from "../db/models/user.js";
+import { User, middlewareUserRemoveRelated } from "../db/models/user.js";
 import { userDocToUser } from "../db/models/user.js";
 import { getQueryParamName, sendError} from "./_common.js";
 
@@ -13,6 +13,7 @@ export const userRouter = express.Router();
  */
 userRouter.delete("/users/:id", async (req, resp) => {
   try {
+    await middlewareUserRemoveRelated(req.params.id)
     await User.findByIdAndDelete(req.params.id)
   } catch (e) {
     sendError(resp, e)
@@ -74,6 +75,7 @@ userRouter.delete("/users", async (req, resp) => {
   if (!name) return
   const user = await findOneByName(name, resp)
   if (!user) return;
+  await middlewareUserRemoveRelated(user._id)
   await user.deleteOne()
   resp.sendStatus(204)
 })

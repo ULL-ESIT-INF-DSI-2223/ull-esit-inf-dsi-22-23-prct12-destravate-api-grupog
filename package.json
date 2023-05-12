@@ -5,9 +5,10 @@
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
     "coverage": "c8 npm test && c8 report --reporter=lcov",
     "doc": "typedoc",
-    "start": "tsc-watch --onSuccess 'node dist/index.js'",
     "test": "NODE_ENV=test mocha --exit",
     "watch": "NODE_ENV=test mocha --watch --watch-extensions ts"
   },

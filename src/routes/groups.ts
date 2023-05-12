@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import express from "express";
-import { Group, groupDocToGroup } from "../db/models/group.js";
+import { Group, groupDocToGroup, middlewareGroupRemoveRelated } from "../db/models/group.js";
 import { getQueryParamName, sendError } from "./_common.js";
 import { Document, Types } from "mongoose";
 import { GroupInterface } from "../db/interfaces/group_interface.js";
@@ -14,6 +14,7 @@ export const groupRouter = express.Router();
  */
 groupRouter.delete("/groups/:id", async (req, resp) => {
   try {
+    await middlewareGroupRemoveRelated(req.params.id)
     await Group.findByIdAndDelete(req.params.id)
   } catch (e) {
     sendError(resp, e)
@@ -75,11 +76,16 @@ groupRouter.put("/groups/:id", async (req, resp) => {
 groupRouter.delete("/groups", async (req, resp) => {
   const name = getQueryParamName(req, resp)
   if (!name) return
+  let group
   try {
-    await Group.findOneAndDelete({name})
+    group = await Group.findOneAndDelete({name})
   } catch (e) {
     sendError(resp, e)
     return
+  }
+  if (group) {
+    await middlewareGroupRemoveRelated(group._id)
+    await group.deleteOne()
   }
   resp.sendStatus(204)
 })
