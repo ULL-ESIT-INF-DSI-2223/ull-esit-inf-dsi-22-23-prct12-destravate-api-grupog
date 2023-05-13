@@ -1,5 +1,5 @@
 import * as api from "./routes/index.js"
 import * as db from "./db/index.js"
 
-db.connect("test")
-api.start(12345)
+db.connect("destravate")
+api.start(0)
