@@ -1,0 +1,219 @@
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>practica12</title><meta name="description" content="Documentation for practica12"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container">
+<div class="table-cell" id="tsd-search" data-base=".">
+<div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.7824 13.833L12.6666 10.7177C12.5259 10.5771 12.3353 10.499 12.1353 10.499H11.6259C12.4884 9.39596 13.001 8.00859 13.001 6.49937C13.001 2.90909 10.0914 0 6.50048 0C2.90959 0 0 2.90909 0 6.49937C0 10.0896 2.90959 12.9987 6.50048 12.9987C8.00996 12.9987 9.39756 12.4863 10.5008 11.6239V12.1332C10.5008 12.3332 10.5789 12.5238 10.7195 12.6644L13.8354 15.7797C14.1292 16.0734 14.6042 16.0734 14.8948 15.7797L15.7793 14.8954C16.0731 14.6017 16.0731 14.1267 15.7824 13.833ZM6.50048 10.499C4.29094 10.499 2.50018 8.71165 2.50018 6.49937C2.50018 4.29021 4.28781 2.49976 6.50048 2.49976C8.71001 2.49976 10.5008 4.28708 10.5008 6.49937C10.5008 8.70852 8.71314 10.499 6.50048 10.499Z" fill="var(--color-text)"></path></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div>
+<div class="field">
+<div id="tsd-toolbar-links"></div></div>
+<ul class="results">
+<li class="state loading">Preparing search index...</li>
+<li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">practica12</a></div>
+<div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="7" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="11" width="14" height="2" fill="var(--color-text)"></rect></svg></a></div></div></header>
+<div class="container container-main">
+<div class="col-8 col-content">
+<div class="tsd-page-title">
+<h2>practica12</h2></div>
+<div class="tsd-panel tsd-typography">
+<a href="#práctica-12---destravateapi" id="práctica-12---destravateapi" style="color: inherit; text-decoration: none;">
+  <h1>Práctica 12 - DestravateAPI</h1>
+</a>
+<ul>
+<li>Grupo G<ul>
+<li>Alejandro García Bautista</li>
+<li>Lucas Pérez Rosario</li>
+<li>Miguel Dorta Rodríguez</li>
+</ul>
+</li>
+<li>Lunes 15 de mayo de 2023</li>
+<li>Desarrollo de Sistemas Informáticos</li>
+<li>Grado en Ingeniería Informática</li>
+<li>Universidad de La Laguna</li>
+</ul>
+<p><a href="https://coveralls.io/github/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupog?branch=main"><img src="https://coveralls.io/repos/github/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupog/badge.svg?branch=main" alt="Coverage Status"></a>
+<a href="https://sonarcloud.io/summary/new_code?id=ULL-ESIT-INF-DSI-2223_ull-esit-inf-dsi-22-23-prct12-destravate-api-grupog"><img src="https://sonarcloud.io/api/project_badges/measure?project=ULL-ESIT-INF-DSI-2223_ull-esit-inf-dsi-22-23-prct12-destravate-api-grupog&metric=alert_status" alt="Quality Gate Status"></a></p>
+<p>URL de la API REST: <a href="https://thoughtful-belt-tick.cyclic.app/">https://thoughtful-belt-tick.cyclic.app/</a></p>
+
+<a href="#introducción" id="introducción" style="color: inherit; text-decoration: none;">
+  <h1>Introducción</h1>
+</a>
+<p>En esta última práctica en grupo se nos ha pedido que realicemos el desarrollo de una API REST, haciendo uso de Node/Express y MongoDB Atlas, con la que podremos hacer operaciones de creación, lectura, modificación y borrado de un registro de actividades deportivas, lo realizado en la anterior práctica grupal.</p>
+
+<a href="#contenido" id="contenido" style="color: inherit; text-decoration: none;">
+  <h1>Contenido</h1>
+</a>
+<p>La jerarquía de ficheros dentro de <strong>src</strong> es la siguiente:</p>
+<ul>
+<li><strong>Directorio db</strong>: Contiene todo lo necesario para modelar nuestra base de datos que se encontrara en el servicio de MongoDB Atlas<ul>
+<li><strong>Directorio interfaces</strong>: Contiene las distintas interfaces que se necesitan<ul>
+<li><code>challenge_interface.ts</code></li>
+<li><code>coordinate_interface.ts</code></li>
+<li><code>group_interface.ts</code></li>
+<li><code>track_history_interface.ts</code></li>
+<li><code>track_interface.ts</code></li>
+<li><code>user_interface.ts</code></li>
+</ul>
+</li>
+<li><strong>Directorio models</strong>: Contiene todos los modelos necesarios para añadir a la base de datos<ul>
+<li><code>challenge.ts</code></li>
+<li><code>group.ts</code></li>
+<li><code>track.ts</code></li>
+<li><code>user.ts</code></li>
+</ul>
+</li>
+<li><strong>Directorio schemas</strong>: Contiene los diferentes esquemas que serán usados por los modelos<ul>
+<li><code>challenge_schema.ts</code></li>
+<li><code>coordinates_schema.ts</code></li>
+<li><code>group_schema.ts</code></li>
+<li><code>track_history_schema.ts</code></li>
+<li><code>track_schema.ts</code></li>
+<li><code>user_schema.ts</code></li>
+</ul>
+</li>
+<li><code>activity_type.ts</code>: Enum con los distintos tipos de actividades que se pueden realizar</li>
+<li><code>collection.ts</code>: Contiene un enum con el nombre de todas las colecciones.</li>
+<li><code>index.ts</code>: Contiene una función para realizar una conexión a la base de datos.</li>
+</ul>
+</li>
+<li><strong>Directorio routes</strong>: Contiene todas las rutas a las que se pueden acceder a nuestro servidor Express, ademas de las funcionalidades implementadas en cada ruta.<ul>
+<li><code>_common.ts</code>: Contiene funciones comunes para todas las operaciones a realizar</li>
+<li><code>challenges.ts</code>: Contiene la ruta a <code>/challenges</code>, se encuentras implementadas las operaciones de PUT, POST, DELETE, GET tanto usando un query string como usando el ID de la entrada.</li>
+<li><code>groups.ts</code>: Contiene la ruta a <code>/groups</code>, se encuentras implementadas las operaciones de PUT, POST, DELETE, GET tanto usando un query string como usando el ID de la entrada.</li>
+<li><code>index.ts</code>: contiene la función de inicio del servidor y la ruta por defecto.</li>
+<li><code>tracks.ts</code>: Contiene la ruta a <code>/tracks</code>, se encuentras implementadas las operaciones de PUT, POST, DELETE, GET tanto usando un query string como usando el ID de la entrada.</li>
+<li><code>users.ts</code>: Contiene la ruta a <code>/users</code>, se encuentras implementadas las operaciones de PUT, POST, DELETE, GET tanto usando un query string como usando el ID de la entrada.</li>
+</ul>
+</li>
+<li><strong>Directorio utils</strong>: <ul>
+<li><code>errors.ts</code>: contiene una función para comprobar si un objeto es un error nativo de JavaScript.</li>
+</ul>
+</li>
+<li><code>index.ts</code>: Inicialización del servidor y conexión a la base de datos.</li>
+</ul>
+
+<a href="#desarrollo" id="desarrollo" style="color: inherit; text-decoration: none;">
+  <h1>Desarrollo</h1>
+</a>
+<p>A continuación dejamos una explicación de cómo organizamos las interfaces, esquemas y modelos necesarios para la API REST y de las relaciones que existen entre ellas. Se podrán realizar operaciones en las siguientes ruta:</p>
+<ul>
+<li><code>/tracks</code></li>
+<li><code>/users</code></li>
+<li><code>/challenges</code></li>
+<li><code>/groups</code></li>
+</ul>
+<p>Para poder hacer esto, tenemos colecciones de todo lo anterior donde podremos insertar documentos con información diferentes para cada uno.
+Para poder insertar los objetos en la base de datos se necesitará, para cada tipo de objeto, una interfaz, un esquema y su modelo.</p>
+
+<a href="#tracks" id="tracks" style="color: inherit; text-decoration: none;">
+  <h2><em>Tracks</em></h2>
+</a>
+<p>La interfaz de track tendrá aquellos campos necesarios que se indican en el guion de la práctica</p>
+<pre><code class="language-ts"><span class="hl-0">export</span><span class="hl-1"> </span><span class="hl-2">interface</span><span class="hl-1"> </span><span class="hl-3">TrackInterface</span><span class="hl-1"> </span><span class="hl-2">extends</span><span class="hl-1"> </span><span class="hl-3">Document</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-4">name</span><span class="hl-1">: </span><span class="hl-3">string</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">start</span><span class="hl-1">: </span><span class="hl-3">CoordinatesInterface</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">end</span><span class="hl-1">: </span><span class="hl-3">CoordinatesInterface</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">distanceKm</span><span class="hl-1">: </span><span class="hl-3">number</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">averageSlope</span><span class="hl-1">: </span><span class="hl-3">number</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">userIds</span><span class="hl-1">: </span><span class="hl-3">string</span><span class="hl-1">[],</span><br/><span class="hl-1">  </span><span class="hl-4">activity</span><span class="hl-1">: </span><span class="hl-3">ActivityType</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">averageScore</span><span class="hl-1">: </span><span class="hl-3">number</span><br/><span class="hl-1">}</span>
+</code></pre>
+<p>Esta interfaz será la que se usará para el Scheme de Tracks. El Scheme necesita los mismos campos que la interfaz pero adaptando ciertos tipos, por ejemplo, el tipo del <em>start</em> no será la interfaz de coordenadas sino el Scheme de coordenadas. Indicar también que en el Scheme es donde haremos las validaciones para comprobar que la información de los objetos que se insertan en la base de datos es correcta.</p>
+<pre><code class="language-ts"><span class="hl-1">  </span><span class="hl-5">distanceKm</span><span class="hl-1">: {</span><br/><span class="hl-1">    </span><span class="hl-5">type</span><span class="hl-1">: </span><span class="hl-4">Number</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-5">required</span><span class="hl-1">: </span><span class="hl-2">true</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-5">validate</span><span class="hl-1">: (</span><span class="hl-4">value</span><span class="hl-1">: </span><span class="hl-3">number</span><span class="hl-1">) </span><span class="hl-2">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-0">if</span><span class="hl-1"> (</span><span class="hl-4">value</span><span class="hl-1"> &lt; </span><span class="hl-6">0</span><span class="hl-1"> || </span><span class="hl-4">value</span><span class="hl-1"> &gt; </span><span class="hl-6">41_000</span><span class="hl-1"> || </span><span class="hl-7">isNaN</span><span class="hl-1">(</span><span class="hl-4">value</span><span class="hl-1">)) {</span><br/><span class="hl-1">        </span><span class="hl-0">throw</span><span class="hl-1"> </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-7">Error</span><span class="hl-1">(</span><span class="hl-8">&quot;invalid distance in kilometers&quot;</span><span class="hl-1">);</span><br/><span class="hl-1">      }</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">  },</span>
+</code></pre>
+<p>El código anterior representa el campo de la interfaz que indica la distancia total en kilómetros de la misma, entonces en este caso hay que hacer una comprobación sobre el valor de la misma. Esto se hará para algún otro campo del Scheme.</p>
+<p>En cuanto al modelo, será el que se usará para crear objetos e introducirlos en la base de datos, este modelo usará el Schema que se desarrolla en cada caso.</p>
+<p>Algo interesante a comentar es que en nuestro caso hemos añadido dos funciones más al fichero del modelo. Una de ellas, <strong>function trackDocToTrack(ti: TrackInterface)</strong> para mostrar un JSON de cada objeto únicamente con la información que debemos proporcionar al usuario (es decir, eliminando metadata de la base de datos como la versión del documento). Por otro lado, la función <strong>function middlewareTrackRemoveRelated(id: string)</strong>. Todas aquellas funciones en la práctica del estilo middleware serán las que nos permitirán realizar las eliminaciones en cascada de los objetos que tiene relaciones entre ellos.</p>
+
+<a href="#users" id="users" style="color: inherit; text-decoration: none;">
+  <h2><em>Users</em></h2>
+</a>
+<p>La interfaz de users tendrá aquellos campos necesarios que se indican en el guion de la práctica</p>
+<pre><code class="language-ts"><span class="hl-0">export</span><span class="hl-1"> </span><span class="hl-2">interface</span><span class="hl-1"> </span><span class="hl-3">UserInterface</span><span class="hl-1"> </span><span class="hl-2">extends</span><span class="hl-1"> </span><span class="hl-3">Document</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-4">_id</span><span class="hl-1">: </span><span class="hl-3">string</span><span class="hl-1">; </span><br/><span class="hl-1">  </span><span class="hl-4">name</span><span class="hl-1">: </span><span class="hl-3">string</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><span class="hl-4">friends</span><span class="hl-1">: </span><span class="hl-3">string</span><span class="hl-1">[];</span><br/><span class="hl-1">  </span><span class="hl-4">groupFriends</span><span class="hl-1">: </span><span class="hl-3">string</span><span class="hl-1">[]</span><br/><span class="hl-1">  </span><span class="hl-4">favoriteRoutes</span><span class="hl-1">: </span><span class="hl-3">string</span><span class="hl-1">[];</span><br/><span class="hl-1">  </span><span class="hl-4">activeChallenges</span><span class="hl-1">: </span><span class="hl-3">string</span><span class="hl-1">[];</span><br/><span class="hl-1">  </span><span class="hl-4">routeHistory</span><span class="hl-1">: </span><span class="hl-3">TrackHistoryEntryInterface</span><span class="hl-1">[];</span><br/><span class="hl-1">  </span><span class="hl-4">activity</span><span class="hl-1">: </span><span class="hl-3">ActivityType</span><span class="hl-1">;</span><br/><span class="hl-1">}</span>
+</code></pre>
+<p>Esta interfaz será la que se usará para el Scheme de Users. El Scheme necesita los mismos campos que la interfaz pero adaptando ciertos tipos, por ejemplo, el tipo del <em>favoriteRoutes</em> no será un array de strings como tal sino que será un array de ID&#39;s de aquellas rutas favoritas del usuario. En este caso, aquí tenemos una de las relaciones que habíamos indicado anteriormente en el informe y es que, estos tracks favoritos del usuario deben existir en la base de datos obviamente y, además, si se elimina un track de la base de datos que es favorito del usuario se eliminará de esta lista de tracks favoritos del usuario.</p>
+<pre><code class="language-ts"><span class="hl-1">  </span><span class="hl-5">favoriteRoutes</span><span class="hl-1">: [{</span><br/><span class="hl-1">    </span><span class="hl-4">type:</span><span class="hl-1"> </span><span class="hl-4">Schema</span><span class="hl-1">.</span><span class="hl-4">Types</span><span class="hl-1">.</span><span class="hl-4">ObjectId</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-4">ref:</span><span class="hl-1"> </span><span class="hl-8">&quot;Track&quot;</span><br/><span class="hl-1">  }],</span>
+</code></pre>
+<p>Algo que también debemos especificar sobre los usuario es que en nuestro caso hemos cambiado el <code>_id</code> que proporciona MongoDB Atlas por un string ya que hemos considerado que es la mejor manera de identificar a los usuario. Además, este <code>_id</code> deberá ser único en la base de datos.</p>
+<pre><code class="language-ts"><span class="hl-1">  </span><span class="hl-5">_id</span><span class="hl-1">: {</span><br/><span class="hl-1">    </span><span class="hl-5">type</span><span class="hl-1">: </span><span class="hl-4">String</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-5">required</span><span class="hl-1">: </span><span class="hl-2">true</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-5">unique</span><span class="hl-1">: </span><span class="hl-2">true</span><br/><span class="hl-1">  },</span>
+</code></pre>
+<p>En cuanto al modelo, es similar a lo que se comentó en el apartado sobre Tracks, tenemos de nuevo las dos funciones cuyos objetivos son los que se comentaron.</p>
+
+<a href="#groups" id="groups" style="color: inherit; text-decoration: none;">
+  <h2><em>Groups</em></h2>
+</a>
+<p>La interfaz de groups tendrá aquellos campos necesarios que se indican en el guion de la práctica</p>
+<pre><code class="language-ts"><span class="hl-0">export</span><span class="hl-1"> </span><span class="hl-2">interface</span><span class="hl-1"> </span><span class="hl-3">GroupInterface</span><span class="hl-1"> </span><span class="hl-2">extends</span><span class="hl-1"> </span><span class="hl-3">Document</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-4">name</span><span class="hl-1">: </span><span class="hl-3">string</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><span class="hl-4">participants</span><span class="hl-1">: </span><span class="hl-3">string</span><span class="hl-1">[];</span><br/><span class="hl-1">  </span><span class="hl-4">favoriteRoutes</span><span class="hl-1">: </span><span class="hl-3">string</span><span class="hl-1">[];</span><br/><span class="hl-1">  </span><span class="hl-4">routeHistory</span><span class="hl-1">: </span><span class="hl-3">TrackHistoryEntryInterface</span><span class="hl-1">[];</span><br/><span class="hl-1">  </span><span class="hl-4">createdBy</span><span class="hl-1">: </span><span class="hl-3">string</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><span class="hl-4">activity</span><span class="hl-1">: </span><span class="hl-3">ActivityType</span><span class="hl-1">;</span><br/><span class="hl-1">}</span>
+</code></pre>
+<p>Esta interfaz será la que se usará para el Scheme de Groups. El Scheme necesita los mismos campos que la interfaz pero adaptando ciertos tipos, por ejemplo, el tipo del <em>participants</em> será un array de strings pero que tendrá una referencia a Users. En este caso tenemos también una relación de los participantes de un grupo ya que estos serán Users de la base datos, donde si se elimina un usuario de la base de datos, se eliminará de esta lista de participantes.</p>
+<pre><code class="language-ts"><span class="hl-1">  </span><span class="hl-5">participants</span><span class="hl-1">: [{</span><br/><span class="hl-1">    </span><span class="hl-4">type:</span><span class="hl-1"> </span><span class="hl-4">String</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-4">ref:</span><span class="hl-1"> </span><span class="hl-8">&quot;User&quot;</span><br/><span class="hl-1">  }],</span>
+</code></pre>
+<p>En cuanto al modelo, es similar a lo que se comentó en el apartado sobre Tracks, tenemos de nuevo las dos funciones cuyos objetivos son los que se comentaron.</p>
+
+<a href="#challenges" id="challenges" style="color: inherit; text-decoration: none;">
+  <h2><em>Challenges</em></h2>
+</a>
+<p>La interfaz de challenges tendrá aquellos campos necesarios que se indican en el guion de la práctica</p>
+<pre><code class="language-ts"><span class="hl-0">export</span><span class="hl-1"> </span><span class="hl-2">interface</span><span class="hl-1"> </span><span class="hl-3">ChallengeInterface</span><span class="hl-1"> </span><span class="hl-2">extends</span><span class="hl-1"> </span><span class="hl-3">Document</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-4">name</span><span class="hl-1">: </span><span class="hl-3">string</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><span class="hl-4">routes</span><span class="hl-1">: </span><span class="hl-3">string</span><span class="hl-1">[];</span><br/><span class="hl-1">  </span><span class="hl-4">userIds</span><span class="hl-1">: </span><span class="hl-3">string</span><span class="hl-1">[];</span><br/><span class="hl-1">  </span><span class="hl-4">activity</span><span class="hl-1">: </span><span class="hl-3">ActivityType</span><span class="hl-1">;</span><br/><span class="hl-1">}</span>
+</code></pre>
+<p>Esta interfaz será la que se usará para el Scheme de Challenges. El Scheme necesita los mismos campos que la interfaz pero adaptando ciertos tipos, por ejemplo, el tipo de <em>routes</em> será un array de strings pero que tendrá una referencia a Track. En este caso tenemos también una relación de las rutas de un reto ya que estas serán Tracks de la base datos, donde si se elimina un track de la base de datos, se eliminará de esta lista de tracks del reto.</p>
+<pre><code class="language-ts"><span class="hl-1">  </span><span class="hl-5">routes</span><span class="hl-1">: [{</span><br/><span class="hl-1">    </span><span class="hl-4">type:</span><span class="hl-1"> </span><span class="hl-4">Schema</span><span class="hl-1">.</span><span class="hl-4">Types</span><span class="hl-1">.</span><span class="hl-4">ObjectId</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-4">ref:</span><span class="hl-1"> </span><span class="hl-8">&quot;Track&quot;</span><br/><span class="hl-1">  }],</span>
+</code></pre>
+<p>En cuanto al modelo, es similar a lo que se comentó en el apartado sobre Tracks, tenemos de nuevo las dos funciones cuyos objetivos son los que se comentaron.</p>
+
+<a href="#dificultades-encontradas" id="dificultades-encontradas" style="color: inherit; text-decoration: none;">
+  <h1>Dificultades encontradas</h1>
+</a>
+<p>Las dificultades encontradas a lo largo de la realización de la práctica en grupo han sido las siguientes:</p>
+<ul>
+<li>Surgieron problemas al momento de realizar las GitHub Actions debido que se ejecutaban múltiples veces los tests y se producían errores que no ocurrían en local, la solución fue añadir un identificador único que consta en la fecha y hora a la conexión de la base de datos</li>
+<li>La mayor dificultad encontrada fue realizar la eliminación en cascada, porque no conseguimos hacer funcionar la nativa de Mongoose.</li>
+</ul>
+
+<a href="#conclusión" id="conclusión" style="color: inherit; text-decoration: none;">
+  <h1>Conclusión</h1>
+</a>
+<p>En conclusión este segundo proyecto en grupo de la asignatura DSI, se ha realizado mediante sesiones colaborativas trabajando todos a la vez usando la extensión <strong>Live Share</strong> poniendo en común problemas que iban surgiendo y ayudándonos entre todos para resolver dichos problemas. 
+Así como todos hemos aprendido a usar las herramientas de MongoDB Atlas y Cyclic para poder realizar y desplegar una API REST, ademas de poner en uso todos los conocimientos aprendidos a lo largo de la asignatura.</p>
+</div></div>
+<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+<div class="tsd-navigation settings">
+<details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility">
+<h4 class="uppercase">Member Visibility</h4><form>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-private" name="private"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Private</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></form></div>
+<div class="tsd-theme-toggle">
+<h4 class="uppercase">Theme</h4><select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<nav class="tsd-navigation primary">
+<details class="tsd-index-accordion" open><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Modules</h3></summary>
+<div class="tsd-accordion-details">
+<ul>
+<li class="current selected"><a href="modules.html">practica12</a>
+<ul>
+<li class="tsd-kind-module"><a href="modules/db.html">db</a></li>
+<li class="tsd-kind-module"><a href="modules/db_activity_type.html">db/activity_<wbr/>type</a></li>
+<li class="tsd-kind-module"><a href="modules/db_collection.html">db/collection</a></li>
+<li class="tsd-kind-module"><a href="modules/db_interfaces_challenge_interface.html">db/interfaces/challenge_<wbr/>interface</a></li>
+<li class="tsd-kind-module"><a href="modules/db_interfaces_coordinate_interface.html">db/interfaces/coordinate_<wbr/>interface</a></li>
+<li class="tsd-kind-module"><a href="modules/db_interfaces_group_interface.html">db/interfaces/group_<wbr/>interface</a></li>
+<li class="tsd-kind-module"><a href="modules/db_interfaces_track_history_interface.html">db/interfaces/track_<wbr/>history_<wbr/>interface</a></li>
+<li class="tsd-kind-module"><a href="modules/db_interfaces_track_interface.html">db/interfaces/track_<wbr/>interface</a></li>
+<li class="tsd-kind-module"><a href="modules/db_interfaces_user_interface.html">db/interfaces/user_<wbr/>interface</a></li>
+<li class="tsd-kind-module"><a href="modules/db_models_challenge.html">db/models/challenge</a></li>
+<li class="tsd-kind-module"><a href="modules/db_models_group.html">db/models/group</a></li>
+<li class="tsd-kind-module"><a href="modules/db_models_track.html">db/models/track</a></li>
+<li class="tsd-kind-module"><a href="modules/db_models_user.html">db/models/user</a></li>
+<li class="tsd-kind-module"><a href="modules/db_schemas_challenge_schema.html">db/schemas/challenge_<wbr/>schema</a></li>
+<li class="tsd-kind-module"><a href="modules/db_schemas_coordinates_schema.html">db/schemas/coordinates_<wbr/>schema</a></li>
+<li class="tsd-kind-module"><a href="modules/db_schemas_group_schema.html">db/schemas/group_<wbr/>schema</a></li>
+<li class="tsd-kind-module"><a href="modules/db_schemas_track_history_entry_schema.html">db/schemas/track_<wbr/>history_<wbr/>entry_<wbr/>schema</a></li>
+<li class="tsd-kind-module"><a href="modules/db_schemas_track_schema.html">db/schemas/track_<wbr/>schema</a></li>
+<li class="tsd-kind-module"><a href="modules/db_schemas_user_schema.html">db/schemas/user_<wbr/>schema</a></li>
+<li class="tsd-kind-module"><a href="modules/index.html">index</a></li>
+<li class="tsd-kind-module"><a href="modules/routes.html">routes</a></li>
+<li class="tsd-kind-module"><a href="modules/routes__common.html">routes/_<wbr/>common</a></li>
+<li class="tsd-kind-module"><a href="modules/routes_challenges.html">routes/challenges</a></li>
+<li class="tsd-kind-module"><a href="modules/routes_groups.html">routes/groups</a></li>
+<li class="tsd-kind-module"><a href="modules/routes_tracks.html">routes/tracks</a></li>
+<li class="tsd-kind-module"><a href="modules/routes_users.html">routes/users</a></li>
+<li class="tsd-kind-module"><a href="modules/utils_errors.html">utils/errors</a></li></ul></li></ul></div></details></nav></div></div>
+<div class="container tsd-generator">
+<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div>
+<div class="overlay"></div><script src="assets/main.js"></script></body></html>

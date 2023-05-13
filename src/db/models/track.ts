@@ -30,6 +30,9 @@ export function trackDocToTrack(ti: TrackInterface): unknown {
   }
 }
 
+/**
+ * Function for the cascade deletion for a track
+ */
 export async function middlewareTrackRemoveRelated(id: string): Promise<unknown> {
   const promiseList: Promise<unknown>[] = []
   for (const challenge of await Challenge.find({ routes: id })) {

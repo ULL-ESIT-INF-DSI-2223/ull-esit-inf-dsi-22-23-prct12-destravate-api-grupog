@@ -28,6 +28,9 @@ export function userDocToUser(ui: UserInterface): unknown {
   }
 }
 
+/**
+ * Function for the cascade deletion for a user
+ */
 export async function middlewareUserRemoveRelated(id: string): Promise<unknown> {
   let promiseList: Promise<unknown>[] = []
   for (const challenge of await Challenge.find({ userIds: id })) {

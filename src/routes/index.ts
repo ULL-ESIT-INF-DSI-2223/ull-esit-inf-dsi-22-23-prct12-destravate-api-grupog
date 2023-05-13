@@ -6,6 +6,9 @@ import { trackRouter } from "./tracks.js";
 import { userRouter } from "./users.js";
 import { sendError } from "./_common.js";
 
+/**
+ * Function to start the server and enable routes
+ */
 export function start(port: number): http.Server {
   const app = express();
   app.use(express.json());

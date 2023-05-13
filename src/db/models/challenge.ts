@@ -23,6 +23,9 @@ export function challengeDocToChallenge(ci: ChallengeInterface): unknown {
   }
 }
 
+/**
+ * Function for the cascade deletion for a challenge
+ */
 export async function middlewareChallengeRemoveRelated(id: string): Promise<unknown> {
   const promiseList: Promise<unknown>[] = []
   for (const user of await User.find({ activeChallenges: id })) {

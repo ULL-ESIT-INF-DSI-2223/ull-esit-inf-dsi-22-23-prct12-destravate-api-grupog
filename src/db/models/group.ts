@@ -25,6 +25,9 @@ export function groupDocToGroup(gi: GroupInterface): unknown {
   }
 }
 
+/**
+ * Function for the cascade deletion for a group
+ */
 export async function middlewareGroupRemoveRelated(id: string): Promise<unknown> {
   const promiseList: Promise<unknown>[] = []
   for (const user of await User.find({ groupFriends: id })) {
