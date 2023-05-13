@@ -8,12 +8,13 @@ import { ActivityType } from "../../src/db/activity_type.js";
 import { Challenge } from "../../src/db/models/challenge.js";
 import { Group } from "../../src/db/models/group.js";
 import { Track } from "../../src/db/models/track.js";
+import { testTime } from "./vars.js";
 
 describe("API Users Endpoint", () => {
   let srv: http.Server
 
   before(async () => {
-    db.connect("test")
+    db.connect(`test${testTime}`)
     srv = api.start(0)
     await User.deleteMany({})
   })
@@ -85,7 +86,7 @@ describe("API Users Endpoint", () => {
       .expect('Content-Type', /json/)
       .expect(400);
 
-    expect(resp.body).to.deep.equal({error: 'E11000 duplicate key error collection: test.users index: _id_ dup key: { _id: "mdorta" }'})
+    expect(resp.body).to.deep.equal({error: `E11000 duplicate key error collection: test${testTime}.users index: _id_ dup key: { _id: "mdorta" }`})
   }).timeout(5000)
 
   it("Find user by ID", async () => {

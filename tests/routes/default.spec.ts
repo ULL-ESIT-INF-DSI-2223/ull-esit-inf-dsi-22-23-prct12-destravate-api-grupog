@@ -8,7 +8,6 @@ describe("Default Endpoint", () => {
   let srv: http.Server
 
   before(() => {
-    db.connect("test")
     srv = api.start(0)
   })
   

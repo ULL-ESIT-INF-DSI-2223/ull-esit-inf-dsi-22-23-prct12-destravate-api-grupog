@@ -8,6 +8,7 @@ import { ActivityType } from "../../src/db/activity_type.js";
 import { User } from "../../src/db/models/user.js";
 import { Challenge } from "../../src/db/models/challenge.js";
 import { Group } from "../../src/db/models/group.js";
+import { testTime } from "./vars.js";
 
 /* Test user */
 const Lperez = new User({
@@ -65,7 +66,7 @@ describe("API Track Endpoint", () => {
   
   before(async function() {
     this.timeout(5000);
-    db.connect("test")
+    db.connect(`test${testTime}`)
     srv = api.start(0)
     await Promise.all([Track.deleteMany({}), User.deleteMany({})])
     await Promise.all([Lperez.save(), testTrack.save(), testTrack2.save()])
@@ -145,7 +146,7 @@ describe("API Track Endpoint", () => {
       .expect('Content-Type', /json/)
       .expect(400);
 
-    expect(resp.body).to.deep.equal({error: 'E11000 duplicate key error collection: test.tracks index: name_1 dup key: { name: "Pico del Inglés" }'})
+    expect(resp.body).to.deep.equal({error: `E11000 duplicate key error collection: test${testTime}.tracks index: name_1 dup key: { name: "Pico del Inglés" }`})
   }).timeout(5000)
 
   it("Find track by ID", async () => {
