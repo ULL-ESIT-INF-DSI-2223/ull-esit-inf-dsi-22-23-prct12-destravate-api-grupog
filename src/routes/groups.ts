@@ -48,20 +48,11 @@ groupRouter.get("/groups/:id", async (req, resp) => {
 groupRouter.put("/groups/:id", async (req, resp) => {
   let group: (Document<unknown, GroupInterface> & Omit<GroupInterface & { _id: Types.ObjectId; }, never>) | null
   try {
-    group = await Group.findById(req.params.id)
-  } catch (e) {
-    sendError(resp, e)
-    return
-  }
-  if (!group) {
-    sendError(resp, `Not Found: Group with ID '${req.params.id}'`, 404)
-    return
-  }
-
-  Object.keys(req.body).forEach(key => (Group as any)[key] = req.body[key])
-  
-  try {
-    await group.save()
+    group = await Group.findByIdAndUpdate(req.params.id, req.body)
+    if (!group) {
+      sendError(resp, `Not Found: Group with ID '${req.params.id}'`, 404)
+      return
+    }
   } catch (e) {
     sendError(resp, e)
     return
@@ -134,20 +125,11 @@ groupRouter.put("/groups", async (req, resp) => {
 
   let group: (Document<unknown, GroupInterface> & Omit<GroupInterface & { _id: Types.ObjectId; }, never>) | null
   try {
-    group = await Group.findOneAndUpdate({name})
-  } catch (e) {
-    sendError(resp, e)
-    return
-  }
-  if (!group) {
-    sendError(resp, `Not Found: Group with name '${name}'`, 404)
-    return
-  }
-
-  Object.keys(req.body).forEach(key => (group as any)[key] = req.body[key])
-  
-  try {
-    await group.save()
+    group = await Group.findOneAndUpdate({name}, req.body)
+    if (!group) {
+      sendError(resp, `Not Found: Group with name '${name}'`, 404)
+      return
+    }
   } catch (e) {
     sendError(resp, e)
     return

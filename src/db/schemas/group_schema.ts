@@ -24,10 +24,10 @@ export const GroupSchema = new Schema<GroupInterface>({
     type: Schema.Types.ObjectId,
     ref: "Track"
   }],
-  createdBy: [{
+  createdBy: {
     type: String,
     ref: "User"
-  }],
+  },
   routeHistory: {
     type: [TrackHistoryEntrySchema],
     required: true

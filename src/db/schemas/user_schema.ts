@@ -21,7 +21,7 @@ export const UserSchema = new Schema<UserInterface>({
     },
   },
   friends: [{
-    type: Schema.Types.ObjectId,
+    type: String,
     ref: "User"
   }],
   groupFriends: [{

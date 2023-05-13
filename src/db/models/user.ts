@@ -29,7 +29,7 @@ export function userDocToUser(ui: UserInterface): unknown {
 }
 
 export async function middlewareUserRemoveRelated(id: string): Promise<unknown> {
-  const promiseList: Promise<unknown>[] = []
+  let promiseList: Promise<unknown>[] = []
   for (const challenge of await Challenge.find({ userIds: id })) {
     challenge.userIds = challenge.userIds.filter(userId => userId !== id)
     promiseList.push(challenge.save())
@@ -42,6 +42,13 @@ export async function middlewareUserRemoveRelated(id: string): Promise<unknown> 
     group.participants = group.participants.filter(userId => userId !== id)
     promiseList.push(group.save())
   }
+  for (const user of await User.find({friends: id})) {
+    user.friends = user.friends.filter(userId => userId !== id)
+    promiseList.push(user.save())
+  }
+  await Promise.all(promiseList)
+
+  promiseList = []
   for (const group of await Group.find({createdBy: id})) {
     promiseList.push(middlewareGroupRemoveRelated(group._id))
     promiseList.push(group.deleteOne())

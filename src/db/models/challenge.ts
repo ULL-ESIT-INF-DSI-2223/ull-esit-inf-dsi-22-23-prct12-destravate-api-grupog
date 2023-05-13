@@ -15,7 +15,7 @@ export const Challenge = model<ChallengeInterface>(Collection.CHALLENGES, Challe
  */
 export function challengeDocToChallenge(ci: ChallengeInterface): unknown {
   return {
-    id: ci._id,
+    _id: ci._id,
     name: ci.name,
     routes: ci.routes,
     userIds: ci.userIds,
@@ -26,7 +26,7 @@ export function challengeDocToChallenge(ci: ChallengeInterface): unknown {
 export async function middlewareChallengeRemoveRelated(id: string): Promise<unknown> {
   const promiseList: Promise<unknown>[] = []
   for (const user of await User.find({ activeChallenges: id })) {
-    user.activeChallenges = user.activeChallenges.filter(challengeID => challengeID !== id)
+    user.activeChallenges = user.activeChallenges.filter(challengeID => challengeID.toString() !== id.toString())
     promiseList.push(user.save())
   }
   return Promise.all(promiseList)

@@ -5,10 +5,10 @@ import { Schema } from 'mongoose';
  * Schema to represent a trackhistoryentry following TrackHistoryEntryInterface
  */
 export const TrackHistoryEntrySchema = new Schema<TrackHistoryEntryInterface>({
-  routeId: [{
+  routeId: {
     type: Schema.Types.ObjectId,
     ref: "Track"
-  }],
+  },
   date: {
     type: String,
     required: true

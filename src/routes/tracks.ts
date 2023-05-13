@@ -47,20 +47,11 @@ trackRouter.get("/tracks/:id", async (req, resp) => {
 trackRouter.put("/tracks/:id", async (req, resp) => {
   let track: (Document<unknown, TrackInterface> & Omit<TrackInterface & { _id: Types.ObjectId; }, never>) | null
   try {
-    track = await Track.findById(req.params.id)
-  } catch (e) {
-    sendError(resp, e)
-    return
-  }
-  if (!track) {
-    sendError(resp, `Not Found: Track with ID '${req.params.id}'`, 404)
-    return
-  }
-
-  Object.keys(req.body).forEach(key => (track as any)[key] = req.body[key])
-  
-  try {
-    await track.save()
+    track = await Track.findByIdAndUpdate(req.params.id, req.body)
+    if (!track) {
+      sendError(resp, `Not Found: Track with ID '${req.params.id}'`, 404)
+      return
+    }
   } catch (e) {
     sendError(resp, e)
     return
@@ -135,20 +126,11 @@ trackRouter.put("/tracks", async (req, resp) => {
 
   let track: (Document<unknown, TrackInterface> & Omit<TrackInterface & { _id: Types.ObjectId; }, never>) | null
   try {
-    track = await Track.findOneAndUpdate({name})
-  } catch (e) {
-    sendError(resp, e)
-    return
-  }
-  if (!track) {
-    sendError(resp, `Not Found: Track with name '${name}'`, 404)
-    return
-  }
-
-  Object.keys(req.body).forEach(key => (track as any)[key] = req.body[key])
-  
-  try {
-    await track.save()
+    track = await Track.findOneAndUpdate({name}, req.body)
+    if (!track) {
+      sendError(resp, `Not Found: Track with name '${name}'`, 404)
+      return
+    }
   } catch (e) {
     sendError(resp, e)
     return

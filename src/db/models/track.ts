@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { model } from 'mongoose';
 import { Collection } from '../collection.js';
 import { TrackInterface } from '../interfaces/track_interface.js';
@@ -32,16 +33,16 @@ export function trackDocToTrack(ti: TrackInterface): unknown {
 export async function middlewareTrackRemoveRelated(id: string): Promise<unknown> {
   const promiseList: Promise<unknown>[] = []
   for (const challenge of await Challenge.find({ routes: id })) {
-    challenge.routes = challenge.routes.filter(routeId => routeId !== id)
+    challenge.routes = challenge.routes.filter(routeId => routeId.toString() !== id)
     promiseList.push(challenge.save())
   }
   for (const group of await Group.find({ $or: [{favoriteRoutes: id}, {"routeHistory.routeId": id}] })) {
-    group.favoriteRoutes = group.favoriteRoutes.filter(routeId => routeId !== id)
+    group.favoriteRoutes = group.favoriteRoutes.filter(routeId => routeId.toString() !== id)
     group.routeHistory = group.routeHistory.filter(rh => rh.routeId.toString() !== id)
     promiseList.push(group.save())
   }
   for (const user of await User.find({ $or: [{favoriteRoutes: id}, {"routeHistory.routeId": id}] })) {
-    user.favoriteRoutes = user.favoriteRoutes.filter(routeId => routeId !== id)
+    user.favoriteRoutes = user.favoriteRoutes.filter(routeId => routeId.toString() !== id)
     user.routeHistory = user.routeHistory.filter(rh => rh.routeId.toString() !== id)
     promiseList.push(user.save())
   }

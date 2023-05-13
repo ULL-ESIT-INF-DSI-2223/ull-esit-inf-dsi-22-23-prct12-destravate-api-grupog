@@ -15,7 +15,7 @@ export const Group = model<GroupInterface>(Collection.GROUPS, GroupSchema)
  */
 export function groupDocToGroup(gi: GroupInterface): unknown {
   return {
-    id: gi._id,
+    _id: gi._id,
     name: gi.name,
     participants: gi.participants,
     favoriteRoutes: gi.favoriteRoutes,
@@ -28,7 +28,7 @@ export function groupDocToGroup(gi: GroupInterface): unknown {
 export async function middlewareGroupRemoveRelated(id: string): Promise<unknown> {
   const promiseList: Promise<unknown>[] = []
   for (const user of await User.find({ groupFriends: id })) {
-    user.groupFriends = user.groupFriends.filter(groupId => groupId !== id)
+    user.groupFriends = user.groupFriends.filter(groupId => groupId.toString() !== id.toString())
     promiseList.push(user.save())
   }
   return Promise.all(promiseList)

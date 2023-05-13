@@ -46,20 +46,11 @@ challengeRouter.get("/challenges/:id", async (req, resp) => {
 challengeRouter.put("/challenges/:id", async (req, resp) => {
   let challenge: (Document<unknown, ChallengeInterface> & Omit<ChallengeInterface & { _id: Types.ObjectId; }, never>) | null
   try {
-    challenge = await Challenge.findById(req.params.id)
-  } catch (e) {
-    sendError(resp, e)
-    return
-  }
-  if (!challenge) {
-    sendError(resp, `Not Found: Challenge with ID '${req.params.id}'`, 404)
-    return
-  }
-  
-  Object.keys(req.body).forEach(key => (challenge as any)[key] = req.body[key])
-
-  try {
-    await challenge.save()
+    challenge = await Challenge.findByIdAndUpdate(req.params.id, req.body)
+    if (!challenge) {
+      sendError(resp, `Not Found: Challenge with ID '${req.params.id}'`, 404)
+      return
+    }
   } catch (e) {
     sendError(resp, e)
     return
@@ -128,20 +119,11 @@ challengeRouter.put("/challenges", async (req, resp) => {
   
   let challenge: (Document<unknown, ChallengeInterface> & Omit<ChallengeInterface & { _id: Types.ObjectId; }, never>) | null
   try {
-    challenge = await Challenge.findOneAndUpdate({name})
-  } catch (e) {
-    sendError(resp, e)
-    return
-  }
-  if (!challenge) {
-    sendError(resp, `Not found: Challenge with name '${name}'`, 404)
-    return
-  }
-  
-  Object.keys(req.body).forEach(key => (challenge as any)[key] = req.body[key])
-  
-  try {
-    await challenge.save()
+    challenge = await Challenge.findOneAndUpdate({name}, req.body)
+    if (!challenge) {
+      sendError(resp, `Not Found: Challenge with name '${name}'`, 404)
+      return
+    }
   } catch (e) {
     sendError(resp, e)
     return
